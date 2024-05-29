@@ -1,7 +1,13 @@
 # ChatTTS
 [**English**](./README.md) | [**中文简体**](./README_CN.md)
+基于源代码，增加了：
+1.**ollama大模型接入**，在experimental文件夹下的llm.py中增加了调用ollama的类；
+2.增加了spk_stat.pt文件；
+
+以下是源文：
 
 ChatTTS是专门为对话场景设计的文本转语音模型，例如LLM助手对话任务。它支持英文和中文两种语言。最大的模型使用了10万小时以上的中英文数据进行训练。在HuggingFace中开源的版本为4万小时训练且未SFT的版本.
+
 
 如需就模型进行正式商业咨询，请发送邮件至 open-source@2noise.com。对于中文用户，您可以加入我们的QQ群：808364215 进行讨论。同时欢迎在GitHub上提出问题。如果遇到无法使用HuggingFace的情况,可以在[modelscope](https://www.modelscope.cn/models/pzc163/chatTTS)上进行下载. 
 
