@@ -3,8 +3,13 @@
 
 
 基于源代码，增加了：
+
 1.**ollama大模型接入**，在experimental文件夹下的llm.py中增加了调用ollama的类；
+
 2.增加了spk_stat.pt文件；
+
+3.直接打开ttsllm.py运行即可。
+
 
 以下是源文：
 
