@@ -1,5 +1,5 @@
 
-from openai import OpenAI
+#from openai import OpenAI
  
 prompt_dict = {
     'kimi': [ {"role": "system", "content": "你是 Kimi，由 Moonshot AI 提供的人工智能助手，你更擅长中文和英文的对话。"},
@@ -15,7 +15,7 @@ prompt_dict = {
         {"role": "assistant", "content": "好的，我现在对TTS的文本输入进行处理。这一般叫做text normalization。下面请输入"},
         {"role": "user", "content": "We paid $123 for this desk."},
         {"role": "assistant", "content": "We paid one hundred and twenty three dollars for this desk."},
-        {"role": "user", "content": "详询请拨打010-724654"},
+        {"role": "user", "contenst": "详询请拨打010-724654"},
         {"role": "assistant", "content": "详询请拨打零幺零，七二四六五四"},
         {"role": "user", "content": "罗森宣布将于7月24日退市，在华门店超6000家！"},
         {"role": "assistant", "content": "罗森宣布将于七月二十四日退市，在华门店超过六千家。"},
