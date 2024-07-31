@@ -18,15 +18,15 @@ from ChatTTS.experimental.llm import OllamaLlama3API
                 # model="deepseek-chat")
 
 # 提问题
-user_question = '说中英语简单介绍一下澳门'
+user_question = '简单介绍一下澳门'
 
 #text = client.call(user_question, prompt_version='deepseek')
 #text = client.call(text, prompt_version='deepseek_TN')
 
-ollama_api = OllamaLlama3API(base_url="http://localhost:11434", model="llama3.1:8b")
+ollama_api = OllamaLlama3API(base_url="http://127.0.0.1:11434", model="llama3.1:8b")
 
-text = ollama_api.call(user_question, prompt_version='deepseek')
-text = ollama_api.call(text, prompt_version='deepseek_TN')
+text = ollama_api.call(user_question, prompt_version='llama3')
+# text = ollama_api.call(text, prompt_version='llama3')
 
 torch.manual_seed(8)
 rand_spk = chat.sample_random_speaker()
