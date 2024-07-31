@@ -11,6 +11,7 @@ rand_spk = torch.randn(768) * spk_stat.chunk(2)[0] + spk_stat.chunk(2)[1]
 
 #from ChatTTS.experimental.llm import llm_api
 from ChatTTS.experimental.llm import OllamaLlama3API
+ollama_api = OllamaLlama3API(base_url="http://127.0.0.1:11434", model="llama3.1:8b")
 
 #API_KEY = 'sk-271415bd7d02454b80facfeae519e250'
 #client = llm_api(api_key=API_KEY,
@@ -20,13 +21,11 @@ from ChatTTS.experimental.llm import OllamaLlama3API
 # 提问题
 user_question = '简单介绍一下澳门'
 
+text = ollama_api.call(user_question, prompt_version='llama3')
+
+#text = ollama_api.call(text, prompt_version='llama3')
 #text = client.call(user_question, prompt_version='deepseek')
 #text = client.call(text, prompt_version='deepseek_TN')
-
-ollama_api = OllamaLlama3API(base_url="http://127.0.0.1:11434", model="llama3.1:8b")
-
-text = ollama_api.call(user_question, prompt_version='llama3')
-# text = ollama_api.call(text, prompt_version='llama3')
 
 torch.manual_seed(8)
 rand_spk = chat.sample_random_speaker()
