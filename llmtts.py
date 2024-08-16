@@ -1,16 +1,14 @@
-import torch
 import ChatTTS
-from IPython.display import Audio
-import scipy
+import torch
+import torchaudio
 
+# 加载模型
 chat = ChatTTS.Chat()
-chat.load_models()
+chat.load()
 
-#spk_stat = torch.load('ChatTTS/asset/spk_stat.pt')
-#rand_spk = torch.randn(768) * spk_stat.chunk(2)[0] + spk_stat.chunk(2)[1]
-
-#from ChatTTS.experimental.llm import llm_api
+# from ChatTTS.experimental.llm import llm_api
 from llm import OllamaLlama3API
+# enable Ollama serve
 ollama_api = OllamaLlama3API(base_url="http://127.0.0.1:11434", model="llama3.1:8b")
 
 #API_KEY = 'sk-271415bd7d02454b80facfeae519e250'
@@ -19,29 +17,46 @@ ollama_api = OllamaLlama3API(base_url="http://127.0.0.1:11434", model="llama3.1:
                 # model="deepseek-chat")
 
 # 提问题
-user_question = '介绍一下亚当这个名字的起源'
-
+user_question = '简单介绍美狮美高梅'
 text = ollama_api.call(user_question, prompt_version='llama3')
 
 #text = ollama_api.call(text, prompt_version='llama3')
 #text = client.call(user_question, prompt_version='deepseek')
 #text = client.call(text, prompt_version='deepseek_TN')
 
-torch.manual_seed(8)
+# Weird error with Triton to turn off error supression
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
+
+spk_stat = torch.load('asset/spk_stat.pt')
+rand_spk = torch.randn(768) * spk_stat.chunk(2)[0] + spk_stat.chunk(2)[1]
+
+# torch.manual_seed(6615)
+torch.manual_seed(2)
 rand_spk = chat.sample_random_speaker()
-params_infer_code = {
-    'spk_emb': rand_spk, 
-    'temperature': .3,
-    'top_P': .7,
-    'top_K': 20,
-    }
-params_refine_text = {'prompt': '[oral_3][laugh_1][break_3]'}
 
-# 将infer函数中的文本参数替换为从LLM获取的text
-wav = chat.infer(text,
-                 params_refine_text=params_refine_text, params_infer_code=params_infer_code)
+params_infer_code = ChatTTS.Chat.InferCodeParams(
+    spk_emb = rand_spk, # add sampled speaker 
+    temperature = .3,   # using custom temperature
+    top_P = .7,        # top P decode
+    top_K = 20         # top K decode
+)
+# use oral_(0-9), laugh_(0-2), break_(0-7) 
+# to generate special token in text to synthesize.
+params_refine_text = ChatTTS.Chat.RefineTextParams(
+    prompt='[oral_3][laugh_1][break_4]',
+)
 
-Audio(wav[0], rate=24_000, autoplay=True)
+# 生成音频
+# torch.manual_seed(6615)
+wavs = chat.infer(
+    text,
+    params_refine_text=params_refine_text,
+    params_infer_code=params_infer_code,
+)
+
+# Audio(wavs[0], rate=24_000, autoplay=True)
 
 # 导出音频
-scipy.io.wavfile.write(filename = "./chattts_audio_result.wav", rate = 24_000, data = wav[0].T)
+#scipy.io.wavfile.write(filename = "./chattts_audio_result.wav", rate = 24_000, data = wavs[0].T)
+torchaudio.save("chattts_audio_result.wav", torch.from_numpy(wavs[0]), 24000)

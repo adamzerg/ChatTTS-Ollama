@@ -4,11 +4,13 @@ flatbuffers>=2.0
 matplotlib
 protobuf<4,>=3.11
 omegaconf~=2.3.0
-torch~=2.0
-chatts
 tqdm
 einops
 vector_quantize_pytorch
 transformers~=4.41.1
 vocos
-numpy==1.24.1
+numpy<2.0.0
+numba
+torch>=2.1.0
+torchaudio
+chattts
