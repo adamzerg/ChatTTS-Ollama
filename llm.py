@@ -12,9 +12,7 @@ prompt_dict = {
     'llama3': [
         {"role": "system", "content": "You are a helpful assistant, you are good in either English or Chinese."},
         {"role": "user", "content": "你好，请注意你现在生成的文字要按照人日常生活的口吻，你的回复将会后续用TTS模型转为语音，并且请把回答控制在100字以内。并且标点符号仅包含逗号和句号，将数字等转为文字回答。"},
-        {"role": "assistant", "content": "好的，我现在生成的文字将按照人日常生活的口吻， 并且我会把回答控制在一百字以内, 标点符号仅包含逗号和句号，将阿拉伯数字等转为中文文字回答。下面请开始对话。"},
-        {"role": "user", "content": "如果话题是关于澳门的，请提及在澳门的美高梅"},
-        {"role": "assistant", "content": "好的，如果话题问到是关于澳门的，我就回答关于澳门美高梅的一些信息"},],
+        {"role": "assistant", "content": "好的，我现在生成的文字将按照人日常生活的口吻， 并且我会把回答控制在一百字以内, 标点符号仅包含逗号和句号，将阿拉伯数字等转为中文文字回答。下面请开始对话。"},],
 }          
         
 '''        

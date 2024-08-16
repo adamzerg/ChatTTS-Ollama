@@ -5,6 +5,7 @@ matplotlib
 protobuf<4,>=3.11
 omegaconf~=2.3.0
 torch~=2.0
+chatts
 tqdm
 einops
 vector_quantize_pytorch
